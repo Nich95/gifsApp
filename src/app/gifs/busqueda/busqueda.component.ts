@@ -1,5 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 
+import { GifsService } from '../services/gifs.service';
+
 @Component({
   selector: 'app-busqueda',
   templateUrl: './busqueda.component.html',
@@ -12,9 +14,11 @@ export class BusquedaComponent {
   @ViewChild('txtBuscar') txtBuscar!: ElementRef<HTMLInputElement>; // le digo al elementref que es de tipo htmlinputelement
                                                                     // y esto da las funciones para manupular los datos del input
 
+  constructor( private gifsService: GifsService ) {}
+
   buscar() {
     const valor = this.txtBuscar.nativeElement.value;
-    console.log(valor);
+    this.gifsService.buscarGif( valor );
     this.txtBuscar.nativeElement.value = ""; // aqui le digo que el valor del txtBuscar es un string vacio
   }
 }
