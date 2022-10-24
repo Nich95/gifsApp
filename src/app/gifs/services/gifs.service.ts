@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -13,6 +14,8 @@ export class GifsService {
     return [...this._historial];
   }
 
+  constructor( private http: HttpClient ) {} // con esto se pueden hacer peticiones http
+
   buscarGif( query: string = '' ) {
     query = query.trim().toLowerCase();
     
@@ -21,6 +24,9 @@ export class GifsService {
       this._historial = this._historial.splice(0, 10);
     }
 
-    console.log(this._historial);
+    this.http.get('https://api.giphy.com/v1/gifs/search?api_key=btokDU8o5Kq1NVuthGjjGBAN2pZ4lPYG&q=dragon ball z&limit=10')
+              .subscribe( (resp: any) => {
+                console.log( resp.data );
+              });
   }
 }
