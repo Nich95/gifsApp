@@ -18,6 +18,10 @@ export class BusquedaComponent {
 
   buscar() {
     const valor = this.txtBuscar.nativeElement.value;
+
+    // trim quita los espacios en blanco y length cuenta la cantidad de caracteres del string
+    if ( valor.trim().length === 0 ) { return; }
+
     this.gifsService.buscarGif( valor );
     this.txtBuscar.nativeElement.value = ""; // aqui le digo que el valor del txtBuscar es un string vacio
   }

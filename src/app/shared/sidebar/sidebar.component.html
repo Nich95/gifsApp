@@ -9,7 +9,8 @@
     <a  *ngFor="let item of historial" 
       href="#" 
       class="list-group-item list-group-item-action">
-      {{ item }}
+      <!-- titlecase pone las primeras letras en mayusculas -->
+      {{ item | titlecase }}
     </a>
   </div>
 </div>
