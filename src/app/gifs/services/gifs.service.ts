@@ -18,7 +18,18 @@ export class GifsService {
     return [...this._historial];
   }
 
-  constructor( private http: HttpClient ) {} // con esto se pueden hacer peticiones http
+  constructor( private http: HttpClient ) { // con esto se pueden hacer peticiones http
+    // se valida si el historial está vacio pero igual marca el error,
+    // par que eso no pase usamos el ! al final
+    // if ( localStorage.getItem('historial') ) {
+    //   this._historial = JSON.parse( localStorage.getItem('historial')! );
+    // }
+
+    // segunda forma
+    // le decimos que el historial es igual al resultado pero si esta vacio o nul regresame []
+    // igual tenemos que usar el signo !
+    this._historial = JSON.parse( localStorage.getItem('historial')! ) || [];
+  } 
 
   buscarGif( query: string = '' ) {
     query = query.trim().toLowerCase();
@@ -26,6 +37,9 @@ export class GifsService {
     if ( !this._historial.includes( query ) ) { // si en el historial no esta incluido el valor agregado ejecuta el código
       this._historial.unshift( query );
       this._historial = this._historial.splice(0, 10);
+
+      // asi se guarda info en el local storage, esto es propio de javascript
+      localStorage.setItem( 'historial', JSON.stringify( this._historial ) );
     }
 
     // se recomienda colocar aqui el tipo de datos que es la respuesta porque el get es generico
