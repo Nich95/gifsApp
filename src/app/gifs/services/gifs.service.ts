@@ -28,7 +28,10 @@ export class GifsService {
     // segunda forma
     // le decimos que el historial es igual al resultado pero si esta vacio o nul regresame []
     // igual tenemos que usar el signo !
-    this._historial = JSON.parse( localStorage.getItem('historial')! ) || [];
+    this._historial = JSON.parse( localStorage.getItem( 'historial' )! ) || [];
+
+    // mostrar los ultimos resultados de busqueda
+    this.resultados = JSON.parse( localStorage.getItem( 'resultados' )! ) || [];
   } 
 
   buscarGif( query: string = '' ) {
@@ -48,6 +51,8 @@ export class GifsService {
               .subscribe( ( resp ) => {
                 console.log( resp.data );
                 this.resultados = resp.data;
+                // para mostrar los ultimos gifs mostrado lo tengo que tomar cuando obtengo la respuesta
+                localStorage.setItem( 'resultados', JSON.stringify( this.resultados ) );
               });
   }
 }
